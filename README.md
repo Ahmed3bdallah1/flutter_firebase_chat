@@ -4,18 +4,15 @@
 
 ## Features
 
-<<<<<<< HEAD
 - Easy integration with Firestore system.
 - Support for Real-time messaging.
 - Customizable chat view with flexible style options.
 - User data collection for enabling chat service.
 
 ---
-=======
 # flutter_firebase_chat
 
 A Flutter package that simplifies the integration of Firestore and Real-Time chatting.
->>>>>>> f590b71af9211ba066d7a7ebe79821eab643a677
 
 ## Getting Started
 
@@ -35,14 +32,12 @@ dependencies:
 
 Run `flutter pub get` to install the package.
 
-<<<<<<< HEAD
 ---
 =======
 ```yaml
 dependencies:
   flutter_firebase_chat : ^1.0.0
 ```
->>>>>>> f590b71af9211ba066d7a7ebe79821eab643a677
 
 ## Usage
 
@@ -108,3 +103,17 @@ Navigator.push(
 ---
 
 ## Additional Information
+
+On Firebase Firestore, navigate to Rules and change to the code below:
+
+```dart  
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write;
+    }
+  }
+}
+```  
