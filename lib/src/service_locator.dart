@@ -34,7 +34,7 @@ Future flutterFirebaseChatLocator() async {
   });
 
   getIt.registerLazySingletonAsync<ChatsRepo>(() async {
-    await getIt.isReady<LocalDataManager>();
+    await getIt.isReady<ChatsDataSource>();
     return ChatsRepoImpl(dataSource: getIt<ChatsDataSource>());
   });
 }
