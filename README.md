@@ -54,6 +54,18 @@ void main() async {
 }
 ```
 
+### Initialize in the android app gradle
+
+```gradle
+    compileSdk 35
+
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 35
+    }
+
+```
+
 ### Initializing Chat Data
 
 ```dart  
