@@ -33,7 +33,8 @@ Future flutterFirebaseChatLocator() async {
     return ChatServices();
   });
 
-  getIt.registerLazySingleton<ChatsRepo>(
-    () => ChatsRepoImpl(dataSource: getIt<ChatsDataSource>()),
-  );
+  getIt.registerLazySingletonAsync<ChatsRepo>(() async {
+    await getIt.isReady<LocalDataManager>();
+    return ChatsRepoImpl(dataSource: getIt<ChatsDataSource>());
+  });
 }
