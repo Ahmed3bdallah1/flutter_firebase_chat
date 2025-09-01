@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Style {
-  final Color? primaryColor,
+  final Color primaryColor,
       appBarBackgroundColor,
       appBarForegroundColor,
       grey2,
@@ -9,7 +9,7 @@ class Style {
       userChatBubbleColor,
       scaffoldColor,
       circleProgressColor;
-  final TextStyle? textStyle;
+  final TextStyle textStyle;
 
   Style({
     this.circleProgressColor = Colors.blue,
@@ -20,6 +20,6 @@ class Style {
     this.grey1 = const Color(0xffd0d9e5),
     this.grey2 = const Color(0xff929898),
     this.scaffoldColor = Colors.white,
-    this.textStyle,
+    this.textStyle = const TextStyle(),
   });
 }

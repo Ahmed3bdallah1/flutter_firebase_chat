@@ -38,7 +38,7 @@ class _ChatPageState extends ConsumerState<ChatPage> {
   late types.User _user;
   final GlobalKey<ChatState> _chatKey = GlobalKey();
   final ChatServiceInit chatInit = ChatServiceInit();
-  final Style style = ChatServiceInit().style!;
+  final Style style = ChatServiceInit().style;
 
   @override
   void didChangeDependencies() {
@@ -116,20 +116,20 @@ class _ChatPageState extends ConsumerState<ChatPage> {
               },
               onPreviewDataFetched: _handlePreviewDataFetched,
               theme: DefaultChatTheme(
-                backgroundColor: style.scaffoldColor??Colors.white,
-                primaryColor: style.primaryColor!.withAlpha(200),
-                secondaryColor: style.grey2!.withAlpha(40),
+                backgroundColor: style.scaffoldColor,
+                primaryColor: style.primaryColor.withAlpha(200),
+                secondaryColor: style.grey2.withAlpha(40),
                 receivedMessageBodyTextStyle:
-                TextStyle(color: style.grey2!, fontSize: 14),
+                TextStyle(color: style.grey2, fontSize: 14),
                 sentMessageBodyTextStyle:
-                TextStyle(color: style.scaffoldColor!, fontSize: 14),
+                TextStyle(color: style.scaffoldColor, fontSize: 14),
                 inputBackgroundColor: widget.isDisabled == true
                     ? Colors.transparent
-                    : style.primaryColor!.withAlpha(200),
+                    : style.primaryColor.withAlpha(200),
                 inputTextColor: widget.isDisabled == true
-                    ? style.primaryColor!
-                    : style.scaffoldColor!,
-                inputSurfaceTintColor: style.primaryColor!,
+                    ? style.primaryColor
+                    : style.scaffoldColor,
+                inputSurfaceTintColor: style.primaryColor,
               ),
               showUserAvatars: true,
               inputOptions: InputOptions(enabled: !widget.isDisabled!),
