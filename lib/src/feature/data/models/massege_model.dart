@@ -3,8 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_firebase_chat/src/feature/data/models/user_model.dart';
 
 class MessageModel {
-  final UserModel sender;
-  final UserModel receiver;
+  final UserData sender;
+  final UserData receiver;
   final String message;
   final bool seen;
   final File? file;
@@ -21,8 +21,8 @@ class MessageModel {
 
   factory MessageModel.fromMap(Map<String, dynamic> map) {
     return MessageModel(
-      sender: UserModel.fromJson(map['sender']),
-      receiver: UserModel.fromJson(map['receiver']),
+      sender: UserData.fromJson(map['sender']),
+      receiver: UserData.fromJson(map['receiver']),
       message: map['message'],
       seen: map['seen'] ?? false,
       timestamp: map['timestamp'],

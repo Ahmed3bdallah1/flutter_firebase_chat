@@ -19,7 +19,7 @@ class ChatPage extends ConsumerStatefulWidget {
   final String receiverId;
   final String receiverName;
   final PreferredSizeWidget? customAppBar;
-  final UserModel receiver;
+  final UserData receiver;
 
   const ChatPage({
     super.key,

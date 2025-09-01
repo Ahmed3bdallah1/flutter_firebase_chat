@@ -18,11 +18,11 @@ abstract class LocalDataManager {
 
   Future<void> deleteUser();
 
-  UserModel? getUser();
+  UserData? getUser();
 
   String? getUserId();
 
-  Future<void> setUser(UserModel userModel);
+  Future<void> setUser(UserData userModel);
 
   Future<void> deleteFCMToken();
 
@@ -77,13 +77,13 @@ class GetStorageManagerImpl extends GetStorageManager {
   }
 
   @override
-  UserModel? getUser() {
+  UserData? getUser() {
     final res= getValue("user");
-    return UserModel.fromJson(res);
+    return UserData.fromJson(res);
   }
 
   @override
-  Future<void> setUser(UserModel userModel) {
+  Future<void> setUser(UserData userModel) {
     return setValue("user", userModel.toJson());
   }
 

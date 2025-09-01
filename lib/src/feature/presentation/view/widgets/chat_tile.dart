@@ -35,7 +35,7 @@ class ChatTileContainer extends ConsumerWidget {
         () => ChatPage(
           receiverId: chat.receiverId,
           receiverName: chat.receiverName,
-          receiver: UserModel(
+          receiver: UserData(
             id: int.parse(chat.receiverId),
             status: "1",
             isVerified: "1",

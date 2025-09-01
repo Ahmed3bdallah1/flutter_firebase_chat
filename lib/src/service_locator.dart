@@ -9,17 +9,17 @@ import 'package:get_it/get_it.dart';
 GetIt getIt = GetIt.instance;
 
 class ChatServiceInit {
-  static UserModel _userUser = UserModel(id: 1);
+  static UserData _userUser = UserData(id: 1);
   static Style? _style = Style();
 
-  static void initialize({required UserModel userData, Style? style}) {
+  static void initialize({required UserData userData, Style? style}) {
     ChatServiceInit._userUser = userData;
     ChatServiceInit._style = style;
 
     dataManager.setUser(userData);
   }
 
-  UserModel? get userModel => ChatServiceInit._userUser;
+  UserData? get userModel => ChatServiceInit._userUser;
 
   Style? get style => ChatServiceInit._style;
 }

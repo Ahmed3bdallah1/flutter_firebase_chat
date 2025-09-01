@@ -1,4 +1,4 @@
-class UserModel {
+class UserData {
   final int id;
   final String? uuid;
   final String? name;
@@ -11,7 +11,7 @@ class UserModel {
   final String? isVerified;
   final String? fcmToken;
 
-  UserModel({
+  UserData({
     required this.id,
     this.uuid,
     this.name,
@@ -25,8 +25,8 @@ class UserModel {
     this.fcmToken,
   });
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
+  factory UserData.fromJson(Map<String, dynamic> json) {
+    return UserData(
       id: json['id'] ?? 0,
       uuid: json['uuid'] ?? "",
       name: json['name'] ?? "",

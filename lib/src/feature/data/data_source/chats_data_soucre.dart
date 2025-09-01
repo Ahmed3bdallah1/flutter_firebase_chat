@@ -7,7 +7,7 @@ import '../models/massege_model.dart';
 import '../models/user_model.dart';
 
 abstract class ChatsDataSource {
-  Future<void> sendMessage(UserModel receiver, String message, {File? file});
+  Future<void> sendMessage(UserData receiver, String message, {File? file});
 
   Stream<QuerySnapshot> getMessages(String receiverId);
 
@@ -16,11 +16,11 @@ abstract class ChatsDataSource {
 
 class ChatServices extends ChangeNotifier implements ChatsDataSource {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final UserModel? currentUser = dataManager.getUser() ?? ChatServiceInit().userModel;
+  final UserData? currentUser = dataManager.getUser() ?? ChatServiceInit().userModel;
 
   Future<void> createChatRoomIfNotExists(
     String chatRoomId,
-    UserModel receiver,
+    UserData receiver,
   ) async {
     final docRef = firestore.collection("chat_rooms").doc(chatRoomId);
 
@@ -37,7 +37,7 @@ class ChatServices extends ChangeNotifier implements ChatsDataSource {
 
   @override
   Future<void> sendMessage(
-    UserModel receiver,
+    UserData receiver,
     String message, {
     File? file,
   }) async {
@@ -91,7 +91,7 @@ class ChatServices extends ChangeNotifier implements ChatsDataSource {
     }
   }
 
-  Map<String, dynamic> _prepareUserMapForFirestore(UserModel user) {
+  Map<String, dynamic> _prepareUserMapForFirestore(UserData user) {
     Map<String, dynamic> toJson() {
       return {
         "id": user.id,

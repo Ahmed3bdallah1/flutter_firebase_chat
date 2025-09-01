@@ -11,10 +11,10 @@ class ChatsRepoImpl implements ChatsRepo {
   ChatsRepoImpl({required this.dataSource});
 
   @override
-  Future<Either<Failure,bool>> sendMessage(UserModel? receiver, String message,{String? userId,String? userName}) async {
+  Future<Either<Failure,bool>> sendMessage(UserData? receiver, String message,{String? userId,String? userName}) async {
     try {
       if(receiver == null){
-        final receiver = UserModel(id: int.parse(userId ?? "0"), name: userName ?? "Unknown", role: "user", isVerified: '1',);
+        final receiver = UserData(id: int.parse(userId ?? "0"), name: userName ?? "Unknown", role: "user", isVerified: '1',);
         await dataSource.sendMessage(receiver, message);
       } else {
         await dataSource.sendMessage(receiver, message);
