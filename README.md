@@ -1,39 +1,110 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# flutter_firebase_chat
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+**A Flutter package to integrate with firebase firestore.**
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+<<<<<<< HEAD
+- Easy integration with Firestore system.
+- Support for Real-time messaging.
+- Customizable chat view with flexible style options.
+- User data collection for enabling chat service.
 
-## Getting started
+---
+=======
+# flutter_firebase_chat
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+A Flutter package that simplifies the integration of Firestore and Real-Time chatting.
+>>>>>>> f590b71af9211ba066d7a7ebe79821eab643a677
+
+## Getting Started
+
+### Prerequisites
+
+1. Flutter SDK installed on your machine.
+2. A local stored user account is required to acquire the chat without any conflicts.
+
+### Installation
+
+Add the following line to your `pubspec.yaml` file:
+
+```yaml  
+dependencies:
+  flutter_firebase_chat : ^1.0.0
+```  
+
+Run `flutter pub get` to install the package.
+
+<<<<<<< HEAD
+---
+=======
+```yaml
+dependencies:
+  flutter_firebase_chat : ^1.0.0
+```
+>>>>>>> f590b71af9211ba066d7a7ebe79821eab643a677
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Before proceeding with chat, initialize your chat service (in the `initState` of your widget) and initialize your service locator in main :
 
-```dart
-const like = 'sample';
+
+### Initialize in the main
+
+```dart  
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await flutterFirebaseChatLocator();
+}
 ```
 
-## Additional information
+### Initializing Chat Data
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart  
+ChatServiceInit.initialize(
+  // required User Model
+  userData: UserModel(
+    id: 1, // Required
+    uuid: "UUId",
+    name: "User Name",
+    email: "User Email",
+    phone: "User Phone",
+    role: "User",
+  ), // UserModel.fromJson({})
+  
+  // Optional Style Customizations
+  style: Style(
+    primaryColor: Colors.blue, // Default: const Color(0xff113D64)
+    scaffoldColor: Colors.white, // Default: Colors.white
+    appBarBackgroundColor: Colors.blue, // Default: Colors.blue
+    appBarForegroundColor: Colors.white, // Default: const Color(0xff13828E)
+    textStyle: TextStyle(), // Default: TextStyle()
+    userChatBubbleColor: Colors.blue, // Default: Colors.grey
+    grey1: Colors.grey, // Default: const Color(0xffd0d9e5)
+    grey2: Colors.grey, // Default: const Color(0xff929898)
+    circleProgressColor: Colors.blue, // Default: Colors.blue
+  ),
+);
+```
+
+### Navigating to the Chat View
+
+Once initialized, navigate to the Chat page view using:
+
+```dart  
+Navigator.push(
+  context,
+  MaterialPageRoute(
+    builder: (context) => ChatPage(
+                receiverId: "Receiver ID",
+                receiverName: "Receiver Name",
+                receiver: UserModel(...) // UserModel.fromJson() there is two ways to store the receiving user data
+              ),
+  ),
+);
+```  
+
+---
+
+## Additional Information

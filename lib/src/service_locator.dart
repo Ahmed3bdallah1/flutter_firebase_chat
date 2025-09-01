@@ -24,7 +24,7 @@ class ChatServiceInit {
   Style? get style => ChatServiceInit._style;
 }
 
-Future flutterFirebaseLocator() async {
+Future flutterFirebaseChatLocator() async {
   getIt.registerSingleton<LocalDataManager>(
     await GetStorageManagerImpl().init(),
   );

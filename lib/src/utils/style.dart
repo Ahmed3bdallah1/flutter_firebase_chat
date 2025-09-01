@@ -10,7 +10,6 @@ class Style {
       scaffoldColor,
       circleProgressColor;
   final TextStyle? textStyle;
-  ButtonStyle? buttonStyle;
 
   Style({
     this.circleProgressColor = Colors.blue,
@@ -22,16 +21,5 @@ class Style {
     this.grey2 = const Color(0xff929898),
     this.scaffoldColor = Colors.white,
     this.textStyle,
-    this.buttonStyle,
-  }) {
-    buttonStyle = buttonStyle ??
-        ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          backgroundColor: primaryColor,
-          foregroundColor: Colors.white,
-        );
-  }
+  });
 }
