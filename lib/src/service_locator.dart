@@ -10,18 +10,18 @@ GetIt getIt = GetIt.instance;
 
 class ChatServiceInit {
   static UserData _userUser = UserData(id: 1);
-  static Style? _style = Style();
+  static Style _style = Style();
 
   static void initialize({required UserData userData, Style? style}) {
     ChatServiceInit._userUser = userData;
-    ChatServiceInit._style = style;
+    ChatServiceInit._style = style ?? Style();
 
     dataManager.setUser(userData);
   }
 
   UserData? get userModel => ChatServiceInit._userUser;
 
-  Style? get style => ChatServiceInit._style;
+  Style get style => ChatServiceInit._style;
 }
 
 Future flutterFirebaseChatLocator() async {
