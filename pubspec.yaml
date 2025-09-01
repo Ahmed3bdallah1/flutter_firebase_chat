@@ -1,7 +1,7 @@
 name: flutter_firebase_chat
 description: "A firebase chat package for my team"
 version: 0.0.1
-homepage: 
+homepage: https://github.com/Ahmed3bdallah1/flutter_firebase_chat
 
 environment:
   sdk: ^3.8.1
