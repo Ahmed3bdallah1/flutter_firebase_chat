@@ -1,0 +1,37 @@
+import 'package:flutter_firebase_chat/src/feature/data/data_source/chats_data_soucre.dart';
+import 'package:flutter_firebase_chat/src/feature/data/models/user_model.dart';
+import 'package:flutter_firebase_chat/src/feature/data/repo/chats_repo_imp.dart';
+import 'package:flutter_firebase_chat/src/feature/domain/repo/chats_repo.dart';
+import 'package:flutter_firebase_chat/src/utils/local_service/local_data_manager.dart';
+import 'package:flutter_firebase_chat/src/utils/style.dart';
+import 'package:get_it/get_it.dart';
+
+GetIt getIt = GetIt.instance;
+
+class ChatServiceInit {
+  static UserModel _userUser = UserModel(id: 1);
+  static Style? _style = Style();
+
+  static void initialize({required UserModel userData, Style? style}) {
+    ChatServiceInit._userUser = userData;
+    ChatServiceInit._style = style;
+
+    dataManager.setUser(userData);
+  }
+
+  UserModel? get userModel => ChatServiceInit._userUser;
+
+  Style? get style => ChatServiceInit._style;
+}
+
+Future flutterFirebaseLocator() async {
+  getIt.registerSingleton<LocalDataManager>(
+    await GetStorageManagerImpl().init(),
+  );
+
+  getIt.registerLazySingleton<ChatsDataSource>(() => ChatServices());
+
+  getIt.registerLazySingleton<ChatsRepo>(
+    () => ChatsRepoImpl(dataSource: getIt<ChatsDataSource>()),
+  );
+}
