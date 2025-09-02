@@ -88,6 +88,8 @@ class _ChatPageState extends ConsumerState<ChatPage> {
         child: ref.watch(fetchChatMessagesProvider(widget.receiverId)).customWhen(
           ref: ref,
           refreshable: fetchChatMessagesProvider(widget.receiverId).future,
+          skipLoadingOnRefresh: true,
+          skipLoadingOnReload: true,
           loading: () => const Center(child: LoadingWidget()),
           data: (conversation) {
             final messages = _convertMessages(conversation);
