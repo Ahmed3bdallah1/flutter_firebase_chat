@@ -81,63 +81,59 @@ class _ChatPageState extends ConsumerState<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      appBar: GeneralAppBar(
+      appBar: widget.customAppBar ?? GeneralAppBar(
         title: Text(widget.receiverName, style: TextStyle(fontSize: 18,color: Colors.black,fontWeight: FontWeight.bold)),
       ),
-      body: SafeArea(
-        child: ref.watch(fetchChatMessagesProvider(widget.receiverId)).customWhen(
-          ref: ref,
-          refreshable: fetchChatMessagesProvider(widget.receiverId).future,
-          skipLoadingOnRefresh: true,
-          skipLoadingOnReload: true,
-          loading: () => const Center(child: LoadingWidget()),
-          data: (conversation) {
-            final messages = _convertMessages(conversation);
+      body: ref.watch(fetchChatMessagesProvider(widget.receiverId)).customWhen(
+        ref: ref,
+        refreshable: fetchChatMessagesProvider(widget.receiverId).future,
+        skipLoadingOnRefresh: true,
+        skipLoadingOnReload: true,
+        loading: () => const Center(child: LoadingWidget()),
+        data: (conversation) {
+          final messages = _convertMessages(conversation);
 
-            return Chat(
-              key: _chatKey,
-              messages: messages.reversed.toList(),
-              user: _user,
-              onSendPressed: (types.PartialText message) async {
-                final textMessage = types.TextMessage(
-                  author: _user,
-                  createdAt: DateTime.now().millisecondsSinceEpoch,
-                  id: const Uuid().v4(),
-                  text: message.text,
-                );
+          return Chat(
+            key: _chatKey,
+            messages: messages.reversed.toList(),
+            user: _user,
+            onSendPressed: (types.PartialText message) async {
+              final textMessage = types.TextMessage(
+                author: _user,
+                createdAt: DateTime.now().millisecondsSinceEpoch,
+                id: const Uuid().v4(),
+                text: message.text,
+              );
 
-                await getIt<ChatsRepo>().sendMessage(
-                  widget.receiver,
-                  textMessage.text,
-                  userId: widget.receiver.id.toString(),
-                  userName: widget.receiver.name ?? "Unknown user",
-                );
+              await getIt<ChatsRepo>().sendMessage(
+                widget.receiver,
+                textMessage.text,
+                userId: widget.receiver.id.toString(),
+                userName: widget.receiver.name ?? "Unknown user",
+              );
 
-                ref.invalidate(fetchChatsProvider);
-                ref.invalidate(fetchChatMessagesProvider);
-              },
-              onPreviewDataFetched: _handlePreviewDataFetched,
-              theme: DefaultChatTheme(
-                backgroundColor: style.scaffoldColor,
-                primaryColor: style.primaryColor.withAlpha(200),
-                secondaryColor: style.grey2.withAlpha(40),
-                receivedMessageBodyTextStyle:
-                TextStyle(color: style.grey2, fontSize: 14),
-                sentMessageBodyTextStyle:
-                TextStyle(color: style.scaffoldColor, fontSize: 14),
-                inputBackgroundColor: widget.isDisabled == true
-                    ? Colors.transparent
-                    : style.primaryColor.withAlpha(200),
-                inputTextColor: widget.isDisabled == true
-                    ? style.primaryColor
-                    : style.scaffoldColor,
-                inputSurfaceTintColor: style.primaryColor,
-              ),
-              showUserAvatars: true,
-              inputOptions: InputOptions(enabled: !widget.isDisabled!),
-            );
-          },
-        ),
+              ref.invalidate(fetchChatsProvider);
+              ref.invalidate(fetchChatMessagesProvider);
+            },
+            onPreviewDataFetched: _handlePreviewDataFetched,
+            theme: DefaultChatTheme(
+              backgroundColor: style.scaffoldColor,
+              primaryColor: style.primaryColor.withAlpha(200),
+              secondaryColor: style.grey2.withAlpha(40),
+              receivedMessageBodyTextStyle: TextStyle(color: style.grey2, fontSize: 14),
+              sentMessageBodyTextStyle: TextStyle(color: Colors.white, fontSize: 14),
+              inputBackgroundColor: widget.isDisabled == true
+                  ? Colors.transparent
+                  : style.primaryColor.withAlpha(200),
+              inputTextColor: widget.isDisabled == true
+                  ? Colors.transparent
+                  : style.scaffoldColor,
+              inputSurfaceTintColor: style.primaryColor,
+            ),
+            showUserAvatars: true,
+            inputOptions: InputOptions(enabled: !widget.isDisabled!),
+          );
+        },
       ),
     );
   }

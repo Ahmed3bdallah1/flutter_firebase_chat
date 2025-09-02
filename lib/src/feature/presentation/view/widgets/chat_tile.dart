@@ -6,10 +6,19 @@ import '../../../data/models/user_model.dart';
 import '../../../domain/entities/chat_entity.dart';
 import '../chat_screen.dart';
 
+enum NavigatorType { Get, Navigator }
+
 class ChatTileContainer extends ConsumerWidget {
   final ChatEntity chat;
+  final NavigatorType navigatorType;
+  final UserData? receiverData;
 
-  const ChatTileContainer({super.key, required this.chat});
+  const ChatTileContainer({
+    super.key,
+    required this.chat,
+    this.receiverData,
+    this.navigatorType = NavigatorType.Get,
+  });
 
   String timeAgo(DateTime date) {
     final Duration diff = DateTime.now().difference(date);
@@ -27,15 +36,31 @@ class ChatTileContainer extends ConsumerWidget {
     }
   }
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return GestureDetector(
-      key: UniqueKey(),
-      onTap: () => Get.to(
-        () => ChatPage(
+  _navigateWithGet() {
+    Get.to(
+          () => ChatPage(
+        receiverId: chat.receiverId,
+        receiverName: chat.receiverName,
+        receiver: receiverData ?? UserData(
+          id: int.parse(chat.receiverId),
+          status: "1",
+          isVerified: "1",
+          name: chat.receiverName,
+          role: "user",
+          profilePicture: chat.receiverImage,
+        ),
+      ),
+    );
+  }
+
+  _navigateWithNavigator(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ChatPage(
           receiverId: chat.receiverId,
           receiverName: chat.receiverName,
-          receiver: UserData(
+          receiver: receiverData ?? UserData(
             id: int.parse(chat.receiverId),
             status: "1",
             isVerified: "1",
@@ -45,6 +70,20 @@ class ChatTileContainer extends ConsumerWidget {
           ),
         ),
       ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return GestureDetector(
+      key: UniqueKey(),
+      onTap: () {
+        if (navigatorType == NavigatorType.Get) {
+          _navigateWithGet();
+        } else {
+          _navigateWithNavigator(context);
+        }
+      },
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,

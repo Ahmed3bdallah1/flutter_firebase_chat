@@ -29,6 +29,7 @@ class _ChatsScreenState extends ConsumerState<ChatsScreen> {
                       ref: ref,
                       refreshable: fetchChatsProvider.future,
                       skipLoadingOnRefresh: true,
+                      skipLoadingOnReload: true,
                       error: (e, st) {
                         return NotFoundWidget(
                           title: "Error occurred".tr,
