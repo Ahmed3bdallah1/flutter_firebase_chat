@@ -26,15 +26,10 @@ class ChatServiceInit {
 
 Future flutterFirebaseChatLocator() async {
   final local = await GetStorageManagerImpl().init();
+
   getIt.registerSingleton<LocalDataManager>(local);
 
-  getIt.registerLazySingletonAsync<ChatsDataSource>(() async {
-    await getIt.isReady<LocalDataManager>();
-    return ChatServices();
-  });
+  getIt.registerLazySingleton<ChatsDataSource>(() =>ChatServices());
 
-  getIt.registerLazySingletonAsync<ChatsRepo>(() async {
-    await getIt.isReady<ChatsDataSource>();
-    return ChatsRepoImpl(dataSource: getIt<ChatsDataSource>());
-  });
+  getIt.registerLazySingleton<ChatsRepo>(() => ChatsRepoImpl(dataSource: getIt<ChatsDataSource>()));
 }

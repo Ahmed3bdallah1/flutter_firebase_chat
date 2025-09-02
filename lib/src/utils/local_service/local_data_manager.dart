@@ -113,7 +113,6 @@ class GetStorageManagerImpl extends GetStorageManager {
   @override
   Future<LocalDataManager> init() async {
     await GetStorage.init();
-    // box.erase();
     return this;
   }
 }

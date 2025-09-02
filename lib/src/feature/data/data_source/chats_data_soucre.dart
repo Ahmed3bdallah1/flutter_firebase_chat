@@ -16,12 +16,12 @@ abstract class ChatsDataSource {
 
 class ChatServices extends ChangeNotifier implements ChatsDataSource {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final UserData? currentUser = dataManager.getUser() ?? ChatServiceInit().userModel;
 
   Future<void> createChatRoomIfNotExists(
     String chatRoomId,
     UserData receiver,
   ) async {
+    final UserData? currentUser = dataManager.getUser() ?? ChatServiceInit().userModel;
     final docRef = firestore.collection("chat_rooms").doc(chatRoomId);
 
     final doc = await docRef.get();
@@ -41,6 +41,7 @@ class ChatServices extends ChangeNotifier implements ChatsDataSource {
     String message, {
     File? file,
   }) async {
+    final UserData? currentUser = dataManager.getUser() ?? ChatServiceInit().userModel;
     final Timestamp timestamp = Timestamp.now();
 
     MessageModel messages = MessageModel(
@@ -113,6 +114,7 @@ class ChatServices extends ChangeNotifier implements ChatsDataSource {
 
   @override
   Stream<QuerySnapshot> getMessages(String receiverId) {
+    final UserData? currentUser = dataManager.getUser() ?? ChatServiceInit().userModel;
     List<String> id = [currentUser?.id.toString() ?? "0", receiverId];
     id.sort();
     String chatRoomId = id.join("&");
@@ -141,6 +143,8 @@ class ChatServices extends ChangeNotifier implements ChatsDataSource {
 
   @override
   Stream<QuerySnapshot> getChats() {
+    final UserData? currentUser = dataManager.getUser() ?? ChatServiceInit().userModel;
+
     return firestore
         .collection("chat_rooms")
         .where(
